@@ -1,0 +1,1 @@
+{"name":"trial-salon-editorial","version":"1.0.0","private":true,"scripts":{"dev":"node server.cjs","start":"node server.cjs","build":"node --check app.js && node --check data.js"}}
