@@ -55,3 +55,26 @@
 .booking-summary .summary-professional{margin:8px 0}.booking-summary dl{grid-template-columns:1fr}.service-list .service-professionals a{font-size:11px;line-height:1.4}
 }
 @media(prefers-reduced-motion:reduce){.staff-portrait{transition:none}.portrait-link:hover .staff-portrait{transform:none}}
+
+/* Service discovery: preserve vertical page scrolling during image gestures. */
+.service-photo{touch-action:pan-y pinch-zoom;user-select:none;cursor:grab}
+.service-photo:active{cursor:grabbing}
+.service-photo img{animation:none;-webkit-user-drag:none}
+.service-tabs{min-width:0;overflow-x:auto;scrollbar-width:none}
+.service-tabs::-webkit-scrollbar{display:none}
+.service-tabs button{flex-shrink:0;white-space:nowrap}
+
+/* Small service browsing refinements; service content keeps its existing layout. */
+#service-panel{touch-action:pan-y pinch-zoom;overflow-anchor:none}
+.service-visual{min-width:0}
+.service-swipe-hint{display:none}
+.category-professionals{margin:0 0 14px;padding:0 0 16px;border-bottom:1px solid var(--line)}
+.category-professionals small{display:block;font-size:9px;color:var(--muted)}
+@media(max-width:760px){
+ .service-tabs{width:calc(100% + 13.64%);max-width:calc(100% + 13.64%);overflow-x:auto}
+ .service-tabs button{flex:0 0 auto;white-space:nowrap}
+}
+@media(hover:none) and (pointer:coarse){
+ .service-swipe-hint{display:block;text-align:center;font-size:9px;letter-spacing:.5px;color:var(--muted);margin:8px 0 22px}
+ .service-visual .service-photo{margin-bottom:0}
+}
