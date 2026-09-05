@@ -1,1 +1,11 @@
-{"name":"trial-salon-modern","version":"1.0.0","private":true,"scripts":{"dev":"node server.cjs","start":"node server.cjs","build":"node --check app.js && node --check data.js && node --check server.cjs"}}
+{
+  "name": "trial-salon-modern",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.cjs",
+    "start": "node server.cjs",
+    "build": "node --check app.js && node --check data.js && node --check server.cjs && node --check appointment-builder.js && node --check booking-pdf.js",
+    "test": "node --test appointment-builder.test.cjs"
+  }
+}

@@ -12,19 +12,19 @@ const TrialRequestPDF=(()=>{
   const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true,putOnlyUsedFonts:true});
   doc.addFileToVFS('NotoSans-Regular.ttf',font);doc.addFont('NotoSans-Regular.ttf','TrialSans','normal');
   doc.setProperties({title:'Trial Salon Demo — Booking Request',subject:'Demo request pending confirmation; not a confirmed appointment',author:'Trial Salon Demo',creator:'Trial Salon Demo'});
-  const wine=[83,28,46],ink=[48,42,41],muted=[98,89,84],line=[216,207,194];
+  const wine=[22,73,237],ink=[16,28,53],muted=[91,105,125],line=[220,224,232];
   const left=20,width=170,bottom=271;let y=0;
-  const text=(value,x,at,size=10,color=ink,fontName='TrialSans')=>{doc.setFont(fontName,'normal');doc.setFontSize(size);doc.setTextColor(...color);doc.text(clean(value),x,at)};
+  const text=(value,x,at,size=10,color=ink,fontName='TrialSans')=>{doc.setFont(fontName,fontName==='helvetica'?'bold':'normal');doc.setFontSize(size);doc.setTextColor(...color);doc.text(clean(value),x,at)};
   const rule=at=>{doc.setDrawColor(...line);doc.setLineWidth(.25);doc.line(left,at,190,at)};
   function page(first){
    if(!first)doc.addPage();
-   if(first){doc.setFillColor(246,242,233);doc.rect(0,0,210,57,'F');text('TRIAL SALON DEMO',left,24,23,wine,'times');text('BOOKING REQUEST',left,36,10,wine);text('Reference: '+request.reference,left,46,9,muted);y=64}
+   if(first){doc.setFillColor(247,248,250);doc.rect(0,0,210,57,'F');text('TRIAL SALON DEMO',left,24,23,wine,'helvetica');text('BOOKING REQUEST',left,36,10,wine);text('Reference: '+request.reference,left,46,9,muted);text('DEMO / FICTIONAL BUSINESS',left,53,8,wine);y=64}
    else{text('TRIAL SALON DEMO / BOOKING REQUEST',left,21,10,wine);text('Reference: '+request.reference,left,29,8,muted);rule(34);y=45}
   }
   const ensure=height=>{if(y+height>bottom)page(false)};
   const wrap=(value,size=10,maxWidth=width)=>{doc.setFont('TrialSans','normal');doc.setFontSize(size);return doc.splitTextToSize(clean(value),maxWidth)};
   function paragraph(value,size=10,color=ink){for(const content of wrap(value,size)){ensure(5.3);text(content,left,y,size,color);y+=5.3}y+=2}
-  function section(label,reserve=22){ensure(12+reserve);rule(y);y+=7;text(label,left,y,9,wine);y+=8}
+  function section(label,reserve=22){ensure(12+reserve);rule(y);y+=7;text(label,left,y,9,wine);y+=6}
   function field(label,value){ensure(14);text(label,left,y,8,muted);y+=6;paragraph(value)}
   function row(fields){
    const gap=9,column=(width-gap*(fields.length-1))/fields.length;
@@ -33,7 +33,7 @@ const TrialRequestPDF=(()=>{
    fields.forEach(([label],i)=>{const x=left+i*(column+gap);text(label,x,y,8,muted);wrapped[i].forEach((v,j)=>text(v,x,y+6+j*5.3))});y+=height;
   }
   page(true);
-  section('SERVICE',33);field('Service',service.name);row([['Price','UGX '+service.price.toLocaleString('en-UG')],['Duration',service.duration],['Category',service.category]]);
+  section('SERVICE',27);paragraph(service.name,12);row([['Price','UGX '+service.price.toLocaleString('en-UG')],['Duration',service.duration],['Category',service.category]]);
   section('PREFERRED VISIT',26);
   const visitDate=new Intl.DateTimeFormat('en-GB',{weekday:'short',day:'numeric',month:'long',year:'numeric',timeZone:zone}).format(new Date(request.date+'T12:00:00Z'));
   row([['Date',visitDate],['Preferred time',request.time+' EAT (Kampala)']]);paragraph('Preferred time only — availability has not been confirmed.',9,muted);
