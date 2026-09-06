@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node server.cjs",
-    "start": "node server.cjs",
-    "build": "node --check app.js && node --check data.js && node --check server.cjs && node --check appointment-builder.js && node --check booking-pdf.js",
+    "build": "node --check app.js && node --check data.js && node --check server.cjs && node --check appointment-builder.js && node --check booking-pdf.js && node build-static.cjs",
     "test": "node --test appointment-builder.test.cjs"
   }
 }
