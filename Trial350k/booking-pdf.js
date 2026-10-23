@@ -1,25 +1,25 @@
 /* Structured local PDF generation. No screenshots, printing or remote services. */
 const TrialRequestPDF=(()=>{
- const filename='trial-salon-booking-request.pdf',zone='Africa/Kampala';
+ const filename='lords-ladys-booking-request.pdf',zone='Africa/Kampala';
  const clean=value=>String(value??'').normalize('NFC').replace(/\r\n?/g,'\n').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g,'');
  const dateStamp=date=>new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).format(date).replaceAll('-','');
  function reference(now=new Date()){
   const bytes=new Uint8Array(6);globalThis.crypto.getRandomValues(bytes);
-  return 'TRIAL-'+dateStamp(now)+'-'+Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();
+  return 'LL-'+dateStamp(now)+'-'+Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();
  }
  function createDocument(jsPDF,font,request,service,generated=new Date()){
   if(!request.reference||!service||!/^\d{4}-\d{2}-\d{2}$/.test(request.date))throw Error('Complete the booking request first.');
   const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true,putOnlyUsedFonts:true});
   doc.addFileToVFS('NotoSans-Regular.ttf',font);doc.addFont('NotoSans-Regular.ttf','TrialSans','normal');
-  doc.setProperties({title:'Trial Salon Demo — Booking Request',subject:'Demo request pending confirmation; not a confirmed appointment',author:'Trial Salon Demo',creator:'Trial Salon Demo'});
-  const wine=[83,28,46],ink=[48,42,41],muted=[98,89,84],line=[216,207,194];
+  doc.setProperties({title:'Lords & Lady\'s — Booking Request',subject:'Demo request pending confirmation; not a confirmed appointment',author:'Lords & Lady\'s',creator:'Lords & Lady\'s'});
+  const wine=[201,29,14],ink=[24,24,24],muted=[98,94,85],line=[233,226,208];
   const left=20,width=170,bottom=271;let y=0;
   const text=(value,x,at,size=10,color=ink,fontName='TrialSans')=>{doc.setFont(fontName,'normal');doc.setFontSize(size);doc.setTextColor(...color);doc.text(clean(value),x,at)};
   const rule=at=>{doc.setDrawColor(...line);doc.setLineWidth(.25);doc.line(left,at,190,at)};
   function page(first){
    if(!first)doc.addPage();
-   if(first){doc.setFillColor(246,242,233);doc.rect(0,0,210,57,'F');text('TRIAL SALON DEMO',left,24,23,wine,'times');text('BOOKING REQUEST',left,36,10,wine);text('Reference: '+request.reference,left,46,9,muted);y=64}
-   else{text('TRIAL SALON DEMO / BOOKING REQUEST',left,21,10,wine);text('Reference: '+request.reference,left,29,8,muted);rule(34);y=45}
+   if(first){doc.setFillColor(255,253,241);doc.rect(0,0,210,57,'F');text('LORDS & LADY\'S',left,24,23,wine,'times');text('DEMONSTRATION BOOKING REQUEST',left,36,10,wine);text('Reference: '+request.reference,left,46,9,muted);y=64}
+   else{text('LORDS & LADY\'S / BOOKING REQUEST',left,21,10,wine);text('Reference: '+request.reference,left,29,8,muted);rule(34);y=45}
   }
   const ensure=height=>{if(y+height>bottom)page(false)};
   const wrap=(value,size=10,maxWidth=width)=>{doc.setFont('TrialSans','normal');doc.setFontSize(size);return doc.splitTextToSize(clean(value),maxWidth)};
