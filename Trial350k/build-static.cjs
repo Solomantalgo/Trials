@@ -8,7 +8,7 @@ const output = join(root, 'dist');
 // build and test scripts use .cjs and are deliberately excluded.
 const browserFile = /\.(?:html|css|js|mjs|jpe?g|png|webp|svg|gif|avif|ico|woff2?|ttf|otf|webmanifest|pdf|mp4|webm)$/i;
 const frontendFiles = readdirSync(root, { withFileTypes: true })
-  .filter(entry => entry.isFile() && browserFile.test(entry.name) && !/\.(?:test|spec)\./.test(entry.name))
+  .filter(entry => entry.isFile() && !entry.name.startsWith('.') && browserFile.test(entry.name) && !/\.(?:test|spec)\./.test(entry.name))
   .map(entry => entry.name);
 
 rmSync(output, { recursive: true, force: true });

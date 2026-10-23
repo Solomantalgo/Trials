@@ -112,7 +112,7 @@ function stepContent(){if(step===0)return `<p>What would you like us to take car
 function capture(){const f=document.querySelector('#booking-form');if(!f)return;const data=new FormData(f);for(const key of Object.keys(booking)){if(data.has(key))booking[key]=String(data.get(key)).trim()}}
 function advance(e){e.preventDefault();capture();if(step===2){if(booking.date<today()||!/^\d{4}-\d{2}-\d{2}$/.test(booking.date)){document.querySelector('#form-error').textContent='Please choose today or a future date.';return}booking.time=''}if(step===4&&(!booking.name||booking.phone.replace(/\D/g,'').length<7)){document.querySelector('#form-error').textContent='Please enter your name and a phone number with at least 7 digits.';return}if(step===formStepCount-1&&!booking.reference)booking.reference=TrialRequestPDF.reference();step++;bookingPage();focusStep()}
 function focusStep(){document.querySelector('.step-content').focus({preventScroll:true});if(innerWidth<800)document.querySelector('.booking-content').scrollIntoView({behavior:'smooth',block:'start'})}
-const menu=document.querySelector('.menu-toggle');function closeMenu(){document.querySelector('.header').classList.remove('menu-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu')}menu.onclick=()=>{const open=document.querySelector('.header').classList.toggle('menu-open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu')};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+const siteHeader=document.querySelector('.header');const menu=document.querySelector('.menu-toggle');
 if('scrollRestoration' in history)history.scrollRestoration='manual';
 function closeMenu(restoreFocus=false){
  siteHeader.classList.remove('menu-open');
@@ -139,7 +139,6 @@ document.addEventListener('keydown',event=>{
  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
 },{capture:true});
 window.addEventListener('resize',()=>{if(innerWidth>760)closeMenu()},{passive:true});
-const siteHeader=document.querySelector('.header');
 const primaryNavLinks=[...document.querySelectorAll('.header nav a[href^="#"]')];
 const primaryNavSections=['about','services','gallery','contact'];
 let headerCompact=false;
@@ -148,7 +147,10 @@ function updateHeaderFlow(){
  else if(headerCompact&&window.scrollY<=0)headerCompact=false;
  siteHeader.classList.toggle('is-scrolled',headerCompact);
  const scrollOffset=headerCompact?(innerWidth<=760?'76px':'96px'):'115px';
- if(document.documentElement.style.getPropertyValue('--header-scroll-offset')!==scrollOffset)document.documentElement.style.setProperty('--header-scroll-offset',scrollOffset);
+ const stickyHeaderHeight=headerCompact?(innerWidth<=760?'64px':'84px'):(innerWidth<=760?'83px':'103px');
+ const rootStyle=document.documentElement.style;
+ if(rootStyle.getPropertyValue('--header-scroll-offset')!==scrollOffset)rootStyle.setProperty('--header-scroll-offset',scrollOffset);
+ if(rootStyle.getPropertyValue('--sticky-header-height')!==stickyHeaderHeight)rootStyle.setProperty('--sticky-header-height',stickyHeaderHeight);
  let active='';
  for(const id of primaryNavSections){
   const section=document.getElementById(id);

@@ -1,24 +1,2 @@
 <!doctype html>
-<meta charset="utf-8">
-<title>Navbar QA</title>
-<iframe id="site"></iframe>
-<pre id="results">Loading</pre>
-<style>html,body,#site{margin:0;width:100%;height:100%;border:0;overflow:hidden}#site{position:fixed;inset:0;visibility:hidden}#results{position:fixed;inset:0;overflow:auto;margin:0;padding:12px;background:#fff;font:12px/1.5 monospace;white-space:pre-wrap;overflow-wrap:anywhere}</style>
-<script>
-const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-const f=document.querySelector('#site');
-f.addEventListener('load',async()=>{
- const w=f.contentWindow,d=w.document,h=d.querySelector('.header');
- await delay(500);
- const read=()=>{const r=h.getBoundingClientRect(),logo=d.querySelector('.brand-logo').getBoundingClientRect(),book=d.querySelector('.header-book').getBoundingClientRect(),menu=d.querySelector('.menu-toggle').getBoundingClientRect();return {scrollY:w.scrollY,width:w.innerWidth,overflow:d.documentElement.scrollWidth>w.innerWidth,header:{left:r.left,width:r.width,height:r.height},logo:{left:logo.left,width:logo.width,height:logo.height},book:{left:book.left,width:book.width,height:book.height},menu:{left:menu.left,width:menu.width,height:menu.height,display:w.getComputedStyle(d.querySelector('.menu-toggle')).display}}};};
- const results={initial:read()};
- w.scrollTo(0,300);await delay(280);results.down={...read(),compact:h.classList.contains('is-scrolled')};
- w.scrollTo(0,10);await delay(60);results.up={...read(),compact:h.classList.contains('is-scrolled')};
- w.scrollTo(0,0);await delay(260);results.top={...read(),compact:h.classList.contains('is-scrolled')};
- const toggle=d.querySelector('.menu-toggle');toggle.click();await delay(60);const nav=d.querySelector('#navigation'),nr=nav.getBoundingClientRect();results.menu={expanded:toggle.getAttribute('aria-expanded'),display:w.getComputedStyle(nav).display,top:nr.top,headerBottom:h.getBoundingClientRect().bottom,focusedFirstLink:d.activeElement===nav.querySelector('a'),linkHeight:nav.querySelector('a').getBoundingClientRect().height};
- d.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await delay(20);results.escape={expanded:toggle.getAttribute('aria-expanded'),focusReturned:d.activeElement===toggle};
- toggle.click();d.querySelector('.header-book').click();await delay(100);results.book={hash:w.location.hash,bookingVisible:!!d.querySelector('.booking-page'),menuExpanded:toggle.getAttribute('aria-expanded')};
- document.querySelector('#results').textContent=JSON.stringify(results);
-});
-f.src='/';
-</script>
+<iframe src="/"></iframe>
