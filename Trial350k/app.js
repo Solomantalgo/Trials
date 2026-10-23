@@ -114,4 +114,22 @@ function advance(e){e.preventDefault();capture();if(step===2){if(booking.date<to
 function focusStep(){document.querySelector('.step-content').focus({preventScroll:true});if(innerWidth<800)document.querySelector('.booking-content').scrollIntoView({behavior:'smooth',block:'start'})}
 const menu=document.querySelector('.menu-toggle');function closeMenu(){document.querySelector('.header').classList.remove('menu-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu')}menu.onclick=()=>{const open=document.querySelector('.header').classList.toggle('menu-open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu')};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
 if('scrollRestoration' in history)history.scrollRestoration='manual';
+const siteHeader=document.querySelector('.header');
+const primaryNavLinks=[...document.querySelectorAll('.header nav a[href^="#"]')];
+const primaryNavSections=['about','services','gallery','contact'];
+function updateHeaderFlow(){
+ siteHeader.classList.toggle('is-scrolled',window.scrollY>12);
+ let active='';
+ for(const id of primaryNavSections){
+  const section=document.getElementById(id);
+  if(section&&section.getBoundingClientRect().top<=siteHeader.getBoundingClientRect().bottom+40)active=id;
+ }
+ primaryNavLinks.forEach(link=>{
+  if(link.hash==='#'+active)link.setAttribute('aria-current','location');
+  else link.removeAttribute('aria-current');
+ });
+}
+window.addEventListener('scroll',updateHeaderFlow,{passive:true});
+window.addEventListener('resize',updateHeaderFlow,{passive:true});
+updateHeaderFlow();
 let currentPage='';function route(){closeMenu();const hasHash=location.hash.length>0;const hash=location.hash||'#home';if(hash.startsWith('#book')){catalogueController?.abort();const id=new URLSearchParams(hash.split('?')[1]||'').get('service');if(currentPage!=='book'||id&&id!==booking.service){const s=findService(id);booking={category:s?.categoryId||'',service:s?.id||'',date:'',time:'',name:'',phone:'',email:'',notes:''};step=s?2:0}currentPage='book';bookingPage();window.scrollTo(0,0);document.title="Book a request — Lords & Lady's"}else{if(currentPage!=='home'){currentPage='home';home()}document.title="Lords & Lady's — Your Style. Our Craft.";if(hasHash&&hash!=='#home')requestAnimationFrame(()=>document.getElementById(hash.slice(1))?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));else if(!hasHash)window.scrollTo({top:0,behavior:'instant'})}}window.addEventListener('hashchange',route);document.querySelector('#year').textContent=new Date().getFullYear();route();
