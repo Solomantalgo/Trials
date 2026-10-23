@@ -1,7 +1,7 @@
 <!doctype html>
 <meta charset="utf-8">
 <title>Navbar QA</title>
-<iframe id="site" src="/"></iframe>
+<iframe id="site"></iframe>
 <pre id="results">Loading</pre>
 <style>html,body,#site{margin:0;width:100%;height:100%;border:0;overflow:hidden}#site{position:fixed;inset:0;visibility:hidden}#results{position:fixed;inset:0;overflow:auto;margin:0;padding:12px;background:#fff;font:12px/1.5 monospace;white-space:pre-wrap;overflow-wrap:anywhere}</style>
 <script>
@@ -20,4 +20,5 @@ f.addEventListener('load',async()=>{
  toggle.click();d.querySelector('.header-book').click();await delay(100);results.book={hash:w.location.hash,bookingVisible:!!d.querySelector('.booking-page'),menuExpanded:toggle.getAttribute('aria-expanded')};
  document.querySelector('#results').textContent=JSON.stringify(results);
 });
+f.src='/';
 </script>
