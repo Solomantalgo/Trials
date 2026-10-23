@@ -18,7 +18,7 @@ async function main(){
   await call('Page.navigate',{url:'http://127.0.0.1:5180/'});await sleep(750);
   const top=await evaluate(`(()=>{const h=document.querySelector('.header'),r=h.getBoundingClientRect(),l=h.querySelector('.brand-logo').getBoundingClientRect(),b=h.querySelector('.header-book').getBoundingClientRect(),m=h.querySelector('.menu-toggle').getBoundingClientRect();return {scrollY,innerWidth,headerTop:r.top,headerLeft:r.left,headerWidth:r.width,headerHeight:r.height,logoWidth:l.width,logoHeight:l.height,logoLoaded:h.querySelector('img').naturalWidth>0,bookWidth:b.width,bookHeight:b.height,menuWidth:m.width,menuHeight:m.height,menuDisplay:getComputedStyle(h.querySelector('.menu-toggle')).display,overflow:document.documentElement.scrollWidth>innerWidth}})()`);
   if(top.scrollY!==0)errors.push(`${width}px initial scroll position was ${top.scrollY}`);
-  if(width===375||width===1366)await capture(`nav-${width}-top.png`);
+  await capture(`nav-${width}-top.png`);
   await evaluate('window.scrollTo(0,300)');await sleep(280);
   const down=await evaluate(`({scrollY,compact:document.querySelector('.header').classList.contains('is-scrolled'),headerTop:document.querySelector('.header').getBoundingClientRect().top,headerHeight:document.querySelector('.header').getBoundingClientRect().height,background:getComputedStyle(document.querySelector('.header')).backgroundColor})`);
   await evaluate('window.scrollTo(0,10)');await sleep(80);const up=await evaluate(`({scrollY,compact:document.querySelector('.header').classList.contains('is-scrolled')})`);
