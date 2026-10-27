@@ -87,3 +87,118 @@ html{scroll-padding-top:var(--header-scroll-offset,115px)}
 }
 @media(prefers-reduced-motion:reduce){.header,.brand-logo,.menu-icon i{transition-duration:.01ms!important}}
 .category-navigation{top:var(--sticky-header-height,103px)}
+
+/* Lords & Lady's signage palette */
+:root{
+ --brand-charcoal:#26252b;
+ --brand-purple:#725d7e;
+ --brand-gold:#d6c261;
+ --brand-purple-light:#92729c;
+ --brand-purple-dark:#514158;
+ --surface-light:#f7f3ea;
+ --surface-dark:#26252b;
+ --text-light:#f7f3ea;
+ --text-dark:#26252b;
+ --text-muted-light:#d1cbd0;
+ --brand-yellow:var(--brand-gold);
+ --brand-red:var(--brand-purple);
+ --brand-black:var(--brand-charcoal);
+ --surface:var(--surface-light);
+ --surface-soft:#eee8f0;
+ --text-primary:var(--text-dark);
+ --text-secondary:#625b62;
+ --border:#e5ddd0;
+ --wine:var(--brand-purple);
+ --wine-dark:var(--brand-purple-dark);
+ --cream:var(--surface-light);
+ --ink:var(--text-dark);
+ --muted:var(--text-secondary);
+ --gold:var(--brand-gold);
+ --line:var(--border);
+}
+
+/* Dark, compact sticky brand header */
+.header{background:var(--brand-charcoal);border-bottom-color:rgba(247,243,234,.2);color:var(--text-light)}
+.header.is-scrolled{background:var(--brand-charcoal);border-bottom-color:rgba(214,194,97,.32);box-shadow:0 4px 14px rgba(20,17,23,.22)}
+.header nav a{color:var(--text-light)}
+.header nav a:after{background:var(--brand-gold)}
+.header nav a:hover,.header nav a[aria-current="location"]{color:var(--brand-gold)}
+.header-book{border:1px solid var(--brand-gold);background:var(--brand-gold);color:var(--brand-charcoal);padding:12px 15px;font-weight:700}
+.header-book:hover{background:var(--brand-purple-light);border-color:var(--brand-purple-light);color:#fff}
+.menu-toggle{color:var(--text-light)}
+.menu-icon i{background:var(--brand-gold)}
+.header nav{color:var(--text-light)}
+
+/* Editorial hero with clear charcoal and gold brand cues */
+.hero{background:var(--brand-charcoal);color:var(--text-light)}
+.hero h1{color:var(--text-light)}
+.hero-eyebrow,.hero-bottom a,.hero-note,.hero-side{color:var(--brand-gold)}
+.hero-copy>p,.hero-bottom,.hero-edition{color:var(--text-muted-light)}
+.hero-bottom{border-color:rgba(247,243,234,.25)}
+.hero-bottom a{color:var(--brand-gold)}
+.hero .button{background:var(--brand-purple);border-color:var(--brand-purple);color:#fff}
+.hero .button:hover,.button:hover{background:var(--brand-purple-dark);border-color:var(--brand-purple-dark)}
+.tiny-star,.star,.values>div>span{color:var(--brand-gold)}
+.text-link,.eyebrow,.contact-location{color:var(--brand-purple)}
+.text-link{border-color:var(--brand-purple)}
+
+/* Services and editorial sections */
+.services{background:#eee8f0}
+.category-navigation{background:#eee8f0;border-color:#ddd2e1}
+.category-tabs{border-color:#c8bdcc}
+.category-tabs a[aria-current="location"]{color:var(--brand-purple-dark)}
+.category-tabs a[aria-current="location"]:after{background:var(--brand-gold);height:4px}
+.service-list h3,.service-row strong{color:var(--brand-charcoal)}
+.service-book{color:var(--brand-purple);text-decoration-color:var(--brand-gold)}
+.service-photo figcaption{background:rgba(38,37,43,.78)}
+.story-copy h2,.section h2{color:var(--brand-purple-dark)}
+.gallery-expand{background:var(--brand-charcoal);color:var(--brand-gold)}
+.testimonials{background:#eee8f0;border-color:#ddd2e1}
+.testimonials h2,.testimonials blockquote{color:var(--brand-charcoal)}
+.testimonials .quote-mark,.testimonials .eyebrow{color:var(--brand-purple)}
+
+/* Distinctive booking and invitation moments */
+.invitation{background:var(--brand-charcoal);color:var(--text-light)}
+.invitation h2{color:var(--text-light)}
+.invitation .eyebrow{color:var(--brand-gold)}
+.invitation .button,.booking-page .button{background:var(--brand-purple);border-color:var(--brand-purple);color:#fff}
+.invitation .button:hover,.booking-page .button:hover{background:var(--brand-purple-light);border-color:var(--brand-purple-light)}
+.booking-page{background:var(--brand-charcoal);color:var(--text-light)}
+.booking-page p,.booking-page .booking-disclaimer,.booking-page .progress li{color:var(--text-muted-light)}
+.booking-heading h1,.booking-summary strong,.step-content h2{color:var(--text-light)}
+.booking-summary,.booking-content,.review>div,.form-actions{border-color:rgba(247,243,234,.23)}
+.booking-summary .eyebrow,.step-content .eyebrow,.field,.review>div>span{color:var(--brand-gold)}
+.booking-options label,.time-options label{border-color:rgba(247,243,234,.3);color:var(--text-light)}
+.booking-options label:has(input:checked),.time-options label:has(input:checked){background:var(--brand-purple-dark);border-color:var(--brand-gold);color:#fff}
+.field input,.field textarea{border-color:rgba(247,243,234,.35);color:var(--text-light)}
+.field input::placeholder,.field textarea::placeholder{color:#bdb5c0}
+.booking-page .text-link{color:var(--brand-gold);border-color:var(--brand-gold)}
+.booking-page .field>span{color:var(--text-muted-light)}
+input[type=radio],input[type=checkbox]{accent-color:var(--brand-gold)}
+.progress li>span{border-color:rgba(247,243,234,.35)}
+.progress .current,.progress .complete{color:var(--brand-gold)!important}
+.progress .current>span,.progress .complete>span{background:var(--brand-purple);border-color:var(--brand-gold);color:#fff}
+.review strong{color:var(--text-light)}
+.review button{border-color:var(--brand-gold);color:var(--brand-gold)}
+.confirmation-symbol{color:var(--brand-gold)}
+.form-error{color:#ffb6bc!important}
+
+/* Footer and lightbox use coordinated dark surfaces */
+footer{margin:0;background:var(--brand-charcoal);color:var(--text-light);border-top:3px solid var(--brand-purple);padding-left:7.5%;padding-right:7.5%}
+footer>p,footer small{color:var(--text-muted-light)}
+footer>div a:hover{color:var(--brand-gold)}
+footer small:first-of-type{color:var(--brand-gold)}
+dialog{background:rgba(38,37,43,.97);color:var(--text-light)}
+dialog::backdrop{background:rgba(38,37,43,.9)}
+dialog button{color:var(--brand-gold)}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline-color:var(--brand-gold)}
+
+@media(max-width:760px){
+ .header nav{background:var(--brand-charcoal);color:var(--text-light);box-shadow:0 12px 18px rgba(20,17,23,.25)}
+ .header nav a{color:var(--text-light)}
+ .header nav a:hover,.header nav a[aria-current="location"]{color:var(--brand-gold)}
+ .header-book{background:var(--brand-gold);border-color:var(--brand-gold);color:var(--brand-charcoal)}
+ .hero{padding-top:25px}
+ footer{padding-left:7%;padding-right:7%}
+}
+@media(min-width:761px){.header.is-scrolled .brand-logo{flex-basis:116px;width:116px;height:82px}}

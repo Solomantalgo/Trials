@@ -12,19 +12,19 @@ const TrialRequestPDF=(()=>{
   const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true,putOnlyUsedFonts:true});
   doc.addFileToVFS('NotoSans-Regular.ttf',font);doc.addFont('NotoSans-Regular.ttf','TrialSans','normal');
   doc.setProperties({title:'Lords & Lady\'s — Booking Request',subject:'Demo request pending confirmation; not a confirmed appointment',author:'Lords & Lady\'s',creator:'Lords & Lady\'s'});
-  const wine=[201,29,14],ink=[24,24,24],muted=[98,94,85],line=[233,226,208];
+  const purple=[114,93,126],gold=[214,194,97],charcoal=[38,37,43],ink=[38,37,43],muted=[98,91,98],line=[229,221,208];
   const left=20,width=170,bottom=271;let y=0;
   const text=(value,x,at,size=10,color=ink,fontName='TrialSans')=>{doc.setFont(fontName,'normal');doc.setFontSize(size);doc.setTextColor(...color);doc.text(clean(value),x,at)};
   const rule=at=>{doc.setDrawColor(...line);doc.setLineWidth(.25);doc.line(left,at,190,at)};
   function page(first){
    if(!first)doc.addPage();
-   if(first){doc.setFillColor(255,253,241);doc.rect(0,0,210,57,'F');text('LORDS & LADY\'S',left,24,23,wine,'times');text('DEMONSTRATION BOOKING REQUEST',left,36,10,wine);text('Reference: '+request.reference,left,46,9,muted);y=64}
-   else{text('LORDS & LADY\'S / BOOKING REQUEST',left,21,10,wine);text('Reference: '+request.reference,left,29,8,muted);rule(34);y=45}
+   if(first){doc.setFillColor(...charcoal);doc.rect(0,0,210,57,'F');text('LORDS & LADY\'S',left,24,23,gold,'times');text('DEMONSTRATION BOOKING REQUEST',left,36,10,gold);text('Reference: '+request.reference,left,46,9,[209,203,208]);y=64}
+   else{text('LORDS & LADY\'S / BOOKING REQUEST',left,21,10,purple);text('Reference: '+request.reference,left,29,8,muted);rule(34);y=45}
   }
   const ensure=height=>{if(y+height>bottom)page(false)};
   const wrap=(value,size=10,maxWidth=width)=>{doc.setFont('TrialSans','normal');doc.setFontSize(size);return doc.splitTextToSize(clean(value),maxWidth)};
   function paragraph(value,size=10,color=ink){for(const content of wrap(value,size)){ensure(5.3);text(content,left,y,size,color);y+=5.3}y+=2}
-  function section(label,reserve=22){ensure(12+reserve);rule(y);y+=7;text(label,left,y,9,wine);y+=8}
+  function section(label,reserve=22){ensure(12+reserve);rule(y);y+=7;text(label,left,y,9,purple);y+=8}
   function field(label,value){ensure(14);text(label,left,y,8,muted);y+=6;paragraph(value)}
   function row(fields){
    const gap=9,column=(width-gap*(fields.length-1))/fields.length;
@@ -40,7 +40,7 @@ const TrialRequestPDF=(()=>{
   section('CUSTOMER DETAILS',22);row([['Name',request.name],['Phone',request.phone]]);
   if(request.email?.trim())field('Email',request.email);
   if(request.notes?.trim())field('Booking notes',request.notes);
-  section('REQUEST STATUS',36);paragraph('REQUEST PENDING CONFIRMATION',10,wine);
+  section('REQUEST STATUS',36);paragraph('REQUEST PENDING CONFIRMATION',10,purple);
   paragraph('This is a booking request and does not confirm an appointment.',10);
   paragraph('Demo only: no request has been sent to a salon, no availability checked and no payment made. In a real booking, the salon would confirm availability with the customer.',9,muted);
   section('GENERATED',10);
