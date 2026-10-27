@@ -12,7 +12,7 @@ const TrialRequestPDF=(()=>{
   const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true,putOnlyUsedFonts:true});
   doc.addFileToVFS('NotoSans-Regular.ttf',font);doc.addFont('NotoSans-Regular.ttf','TrialSans','normal');
   doc.setProperties({title:'Lords & Lady\'s — Booking Request',subject:'Demo request pending confirmation; not a confirmed appointment',author:'Lords & Lady\'s',creator:'Lords & Lady\'s'});
-  const purple=[114,93,126],gold=[214,194,97],charcoal=[38,37,43],ink=[38,37,43],muted=[98,91,98],line=[229,221,208];
+  const purple=[99,48,120],gold=[197,160,71],charcoal=[36,34,40],ink=[36,34,40],muted=[98,91,98],line=[229,221,208];
   const left=20,width=170,bottom=271;let y=0;
   const text=(value,x,at,size=10,color=ink,fontName='TrialSans')=>{doc.setFont(fontName,'normal');doc.setFontSize(size);doc.setTextColor(...color);doc.text(clean(value),x,at)};
   const rule=at=>{doc.setDrawColor(...line);doc.setLineWidth(.25);doc.line(left,at,190,at)};
